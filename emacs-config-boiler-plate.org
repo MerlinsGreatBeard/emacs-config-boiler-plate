@@ -1,0 +1,42 @@
+* Use package
+  #+begin_src emacs-lisp :results silent
+;; This is only needed once, near the top of the file
+(eval-when-compile
+  (require 'use-package))
+  #+end_src
+* Evil mode
+#+BEGIN_SRC emacs-lisp :results silent
+(use-package evil
+  :ensure t
+  :diminish evil-mode
+  :init 
+  (setq evil-want-keybinding nil)
+  :config
+  (evil-mode 1)
+  (define-key minibuffer-local-map (kbd "C-g") 'minibuffer-keyboard-quit)
+  (define-key evil-insert-state-map "ö" 'evil-normal-state)
+  (define-key evil-motion-state-map "å" 'evil-end-of-line))
+#+END_SRC
+* Org mode
+** org-mode
+   #+begin_src emacs-lisp :results silent
+   (use-package org
+   :ensure t)
+   #+end_src
+* Evil-org-mode
+  #+BEGIN_SRC emacs-lisp :results silent
+(use-package evil-org
+  :ensure t
+  :after org
+  :diminish evil-org-mode
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+	    (lambda ()
+	      (evil-org-set-key-theme '(textobjects insert navigation additional shift todo heading))))
+  ;; (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys)
+  (evil-define-key 'normal org-mode-map (kbd "C-j") 'org-return-indent)
+  (setq org-special-ctrl-a/e t))
+  #+END_SRC
