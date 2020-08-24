@@ -40,3 +40,14 @@
   (evil-define-key 'normal org-mode-map (kbd "C-j") 'org-return-indent)
   (setq org-special-ctrl-a/e t))
   #+END_SRC
+* Useful Scripts
+** Subscripts
+   - Copied from [[http://ergoemacs.org/emacs/elisp_replace_subscript.html]]
+   #+begin_src emacs-lisp 
+(defun replace-digits-by-subscript (string)
+  (replace-regexp-in-string "[0-9]"
+			    (lambda (arg) (string (aref "₀₁₂₃₄₅₆₇₈₉" (string-to-number arg)))) string) )
+   #+end_src
+
+   #+RESULTS:
+   : replace-digits-by-subscript
