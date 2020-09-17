@@ -17,6 +17,30 @@
   (define-key evil-insert-state-map "ö" 'evil-normal-state)
   (define-key evil-motion-state-map "å" 'evil-end-of-line))
 #+END_SRC
+* Evil-mc
+#+begin_src emacs-lisp :results silent
+(use-package evil-mc
+  :after evil
+  :ensure t
+  :diminish ""
+  :config
+  (global-evil-mc-mode))
+  (add-to-list 'evil-mc-incompatible-minor-modes 'lispy-mode)
+(use-package evil-mc-extras
+  :after evil-mc
+  :ensure t
+  :config
+  (global-evil-mc-extras-mode)
+  ;; For some reason the evil-mc-map isn't active in normal mode
+  ;; so lets associate to the evil-mc-extras map instead   
+  (evil-define-key 'normal evil-mc-extras-key-map
+    (kbd "gr") evil-mc-cursors-map
+    (kbd "M-n") 'evil-mc-make-and-goto-next-cursor
+    (kbd "M-p") 'evil-mc-make-and-goto-prev-cursor
+    (kbd "C-n") 'evil-mc-make-and-goto-next-match
+    (kbd "C-t") 'evil-mc-skip-and-goto-next-match
+    (kbd "C-p") 'evil-mc-make-and-goto-prev-match))
+#+end_src
 * Org mode
 ** org-mode
    #+begin_src emacs-lisp :results silent
